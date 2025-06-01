@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="container py-4">
+	<%@ include file="menu.jsp" %>   
      
 	<%! String greeting="영화 예매 홈페이지에 오신 것을 환영합니다";
 	String tagline="Welcome to Movie Ticket Homepage!"; %>
