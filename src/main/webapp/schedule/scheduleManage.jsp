@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ include file="../dbconn.jsp" %> 
 <%@ page import="java.util.*, dao.ScheduleRepository, dto.Schedule" %>
-
+ 
 <%
     String title = request.getParameter("title");
     String time = request.getParameter("time");

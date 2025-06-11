@@ -2,7 +2,7 @@
 <%@ include file="../dbconn.jsp" %> 
 <%@ page import="java.util.*, dao.ScheduleRepository, dto.Schedule" %>
 <%@ page import="java.time.LocalDate" %>
-
+ 
 <%
     String selectedDate = request.getParameter("date");
     if (selectedDate == null || selectedDate.isEmpty()) {
