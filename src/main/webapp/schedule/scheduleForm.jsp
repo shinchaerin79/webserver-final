@@ -13,6 +13,10 @@
             <input type="text" name="title" class="form-control" required>
         </div>
         <div class="mb-3">
+		    <label class="form-label">상영 날짜</label>
+		    <input type="date" name="date" class="form-control" required>
+		</div>  
+        <div class="mb-3">
             <label class="form-label">상영 시간 (예: 14:00)</label>
             <input type="text" name="time" class="form-control" required>
         </div>
