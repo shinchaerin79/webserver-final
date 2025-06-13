@@ -78,7 +78,7 @@
                 <%
                     for (Schedule s : screenMap.get(screen)) {
                 %>
-                    <form action="selectSeat.jsp" method="get">
+                    <form action="../selectSeat.jsp" method="get">
                         <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
                         <button type="submit" class="btn btn-outline-primary time-button"><%= s.getTime() %></button>
                     </form>
