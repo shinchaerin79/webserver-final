@@ -74,6 +74,9 @@
         %>
         </tbody>
     </table>
+    
+    <a href="deleteUser.jsp" class="btn btn-danger" onclick="return confirm('정말 탈퇴하시겠습니까?')">회원 탈퇴</a>
+    
 </div>
 </body>
 </html>
