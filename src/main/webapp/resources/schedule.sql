@@ -22,3 +22,14 @@ INSERT INTO schedule (title, screen, time, runtime, date) VALUES
 ('해리포터3', '4관', '11:00', 123, '2025-06-10'),
 ('해리포터6', '1관', '12:00', 123, '2025-06-12');
 
+INSERT INTO schedule (title, screen, time, runtime, date) VALUES
+('어벤져스:엔드게임', '1관', '10:00', 240, '2025-06-16'),
+('어벤져스:엔드게임', '2관', '14:30', 240, '2025-06-16'),
+('어벤져스:엔드게임', '3관', '18:00', 240, '2025-06-17'),
+('어벤져스:엔드게임', '1관', '11:00', 240, '2025-06-18');
+
+INSERT INTO schedule (title, screen, time, runtime, date) VALUES
+('어벤져스:엔드게임', '1관', '22:40', 240, '2025-06-15');
+
+INSERT INTO schedule (title, screen, time, runtime, date) VALUES
+('어벤져스:엔드게임', '1관', '22:55', 240, '2025-06-15');
