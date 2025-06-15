@@ -11,8 +11,24 @@
 			</a>
 			<ul class="nav nav-pills">
 				<li class="nav-items"><a href="./movies.jsp" class="nav-link">영화</a></li>
-				<li class="nav-imtes"><a href="./notice.jsp" class="nav-link">공지사항</a></li>
+				<li class="nav-imtes"><a href="../notice.jsp" class="nav-link">공지사항</a></li>
 			</ul>
+			<div class="ms-auto">
+                <p class="mb-0">
+                    <% 
+                        String nickname = (String) session.getAttribute("nickname"); 
+                        if (nickname != null) { 
+                    %>
+                        닉네임: <%= nickname %> 님
+                    <% 
+                        } else { 
+                    %>
+                        <a href="auth/login.jsp">로그인</a>
+                    <% 
+                        } 
+                    %>
+                </p>
+            </div>
 		</div>
 	</div>
 </header>
