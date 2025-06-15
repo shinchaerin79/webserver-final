@@ -4,10 +4,10 @@
 
 <%
     String userId = (String) session.getAttribute("userId");
-/*     if (userId == null) {
-        response.sendRedirect("../login.jsp");
-        return;
-    } */
+	if (userId == null) {
+		response.sendRedirect("../auth/login.jsp");
+	    return;
+	}
 
     ReservationRepository repo = new ReservationRepository(conn);
     List<Reservation> reservations = repo.getReservationsByUserId(userId);
@@ -22,18 +22,24 @@
 <div class="container mt-5">
     <h2>마이페이지</h2>
 
-    <!-- 사용자 정보 수정 -->
-    <form action="updateInfo.jsp" method="post" class="mb-5">
-        <div class="mb-3">
-            <label>새 비밀번호</label>
-            <input type="password" name="password" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>별명</label>
-            <input type="text" name="nickname" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">수정하기</button>
-    </form>
+<!-- 사용자 정보 수정 -->
+<h4>비밀번호 변경</h4>
+<form action="updateInfo.jsp" method="post" class="mb-5">
+    <div class="mb-3">
+        <label>기존 비밀번호</label>
+        <input type="password" name="currentPassword" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>새 비밀번호</label>
+        <input type="password" name="newPassword" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>별명</label>
+        <input type="text" name="nickname" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">수정하기</button>
+</form>
+
 
     <!-- 예매 내역 -->
     <h4>예매 내역</h4>

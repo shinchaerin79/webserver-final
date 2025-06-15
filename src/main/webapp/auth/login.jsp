@@ -1,4 +1,17 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%
+    String msg = request.getParameter("msg");
+	String redirect = request.getParameter("redirect");
+
+    if (msg != null && !msg.isEmpty()) {
+%>
+    <div class="alert alert-warning text-center" style="margin: 20px;">
+        <%= msg %>
+    </div>
+<%
+    }
+%>
+
 <html>
 <head>
     <title>로그인</title>
@@ -16,6 +29,10 @@
             <label class="form-label">비밀번호</label>
             <input type="password" name="password" class="form-control" required>
         </div>
+        <% if (redirect != null && !redirect.isEmpty()) { %>
+            <input type="hidden" name="redirect" value="<%= redirect %>">
+        <% } %>
+
         <button type="submit" class="btn btn-primary">로그인</button>
         <a href="register.jsp" class="btn btn-secondary">회원가입</a>
     </form>
