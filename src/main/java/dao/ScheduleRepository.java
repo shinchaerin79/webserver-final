@@ -1,8 +1,13 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import dto.Schedule;
-import java.sql.*;
-import java.util.*;
 
 public class ScheduleRepository {
 
@@ -137,4 +142,28 @@ public class ScheduleRepository {
         s.setDate(rs.getDate("date"));
         return s;
     }
+    
+    public List<Schedule> getScheduleByTitleAndDate(String title, String date) {
+        List<Schedule> list = new ArrayList<>();
+        String sql = "SELECT * FROM schedule WHERE title = ? AND date = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, title);
+            pstmt.setString(2, date);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Schedule s = new Schedule();
+                s.setId(rs.getInt("id"));
+                s.setTitle(rs.getString("title"));
+                s.setScreen(rs.getString("screen"));
+                s.setTime(rs.getString("time"));
+                s.setRuntime(rs.getInt("runtime"));
+                s.setDate(rs.getDate("date")); 
+                list.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

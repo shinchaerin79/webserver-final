@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ include file="../dbconn.jsp" %> 
 <%@ page import="java.util.*, dao.ScheduleRepository, dto.Schedule" %>
+<%@ page import="java.time.*, java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDate" %>
  
 <%
@@ -78,10 +79,22 @@
                 <%
                     for (Schedule s : screenMap.get(screen)) {
                 %>
-                    <form action="../selectSeat.jsp" method="get">
-                        <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
-                        <button type="submit" class="btn btn-outline-primary time-button"><%= s.getTime() %></button>
-                    </form>
+				<%
+				    LocalDate showDate = s.getDate().toLocalDate();
+				    LocalTime showTime = LocalTime.parse(s.getTime());
+				    LocalDateTime showDateTime = LocalDateTime.of(showDate, showTime);
+				    LocalDateTime cutoff = showDateTime.minusMinutes(15);
+				    boolean canReserve = LocalDateTime.now().isBefore(cutoff);
+				%>
+				<form action="../selectSeat.jsp" method="get">
+				    <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
+				    <button type="<%= canReserve ? "submit" : "button" %>"
+				            class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> time-button"
+				            <%= !canReserve ? "disabled" : "" %>>
+				        <%= s.getTime() %> (<%= canReserve ? "예매 가능" : "마감" %>)
+				    </button>
+				</form>
+
                 <%
                     }
                 %>
