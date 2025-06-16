@@ -21,8 +21,14 @@
 
             session.setAttribute("userId", username);
             session.setAttribute("nickname", nickname);
+            
+            // 관리자(admin) 계정일 경우 → 관리자 페이지로 이동
+            if ("admin".equals(username)) {
+                response.sendRedirect("../admin/admin.jsp");
+                return;
+            }
 
-            // 로그인 성공 후 이동할 위치
+            // 일반 사용자 로그인 성공 후 이동
             if (redirect != null && !redirect.isEmpty()) {
                 response.sendRedirect(redirect);
             } else {
