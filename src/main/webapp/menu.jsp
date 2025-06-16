@@ -1,4 +1,27 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%
+    String nickname = (String) session.getAttribute("nickname");
+	String currentUserId = (String) session.getAttribute("userId"); 
+%>
+
+<div class="container mt-2 mb-1 text-end">
+    <% if (nickname != null) { %>
+        <span><%= nickname %> 님</span>
+        <% if ("admin".equals(currentUserId)) { %>
+            |
+            <a href="<%= request.getContextPath() %>/admin/admin.jsp" class="text-decoration-none text-danger fw-bold">관리자 페이지</a>
+        <% } %>
+        |
+        <a href="<%= request.getContextPath() %>/mypage/myPage.jsp" class="text-decoration-none">마이페이지</a>
+        |
+        <a href="<%= request.getContextPath() %>/auth/logout.jsp" class="text-decoration-none">로그아웃</a>
+    <% } else { %>
+        <a href="<%= request.getContextPath() %>/auth/login.jsp" class="text-decoration-none">로그인</a>
+        |
+        <a href="<%= request.getContextPath() %>/auth/register.jsp" class="text-decoration-none">회원가입</a>
+    <% } %>
+</div>
+
 <header class ="pb-3 mb-4 border-bottom">
 	<div class="container">
 		<div class="d-flex flex-wrap align-itmes-center justify-content-center justify-content-lg-start">
@@ -10,25 +33,12 @@
 				<span class="fs-4">Home</span>
 			</a>
 			<ul class="nav nav-pills">
-				<li class="nav-items"><a href="./movie/movies.jsp" class="nav-link">영화</a></li>
-				<li class="nav-imtes"><a href="./notice/notice.jsp" class="nav-link">공지사항</a></li>
+			    <li class="nav-items"><a href="<%= request.getContextPath() %>/movie/movies.jsp" class="nav-link">영화 목록</a></li>
+			    <li class="nav-items"><a href="<%= request.getContextPath() %>/notice/notice.jsp" class="nav-link">공지사항</a></li>
+			    <li class="nav-items"><a href="<%= request.getContextPath() %>/schedule/scheduleView.jsp" class="nav-link">바로 예매</a></li>
+
+			
 			</ul>
-			<div class="ms-auto">
-                <p class="mb-0">
-                    <% 
-                        String nickname = (String) session.getAttribute("nickname"); 
-                        if (nickname != null) { 
-                    %>
-                        닉네임: <%= nickname %> 님
-                    <% 
-                        } else { 
-                    %>
-                        <a href="../auth/login.jsp">로그인</a>
-                    <% 
-                        } 
-                    %>
-                </p>
-            </div>
 		</div>
 	</div>
 </header>

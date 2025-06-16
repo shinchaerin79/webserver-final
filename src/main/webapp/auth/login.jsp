@@ -11,7 +11,8 @@
 <%
     }
 %>
-
+<div class="container py-4">
+<%@ include file="../menu.jsp" %>   
 <html>
 <head>
     <title>로그인</title>
@@ -39,3 +40,4 @@
 </div>
 </body>
 </html>
+</div>

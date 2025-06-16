@@ -37,7 +37,9 @@
     </style>
 </head>
 <body>
-<div class="container mt-5">
+<div class="container py-4">
+<%@ include file="../menu.jsp" %>   
+
     <h2 class="mb-4">전체 상영 시간표</h2>
 
     <!-- 날짜 선택 -->
