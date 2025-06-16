@@ -80,8 +80,10 @@
 			    LocalDateTime cutoff = showDateTime.minusMinutes(15);
 			    boolean canReserve = LocalDateTime.now().isBefore(cutoff);
 			%>
-			<form action="selectSeat.jsp" method="get">
+			<form action="../seat/selectSeat.jsp" method="get">
 			    <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
+			    <input type="hidden" name="title" value="<%= s.getTitle() %>">
+    			<input type="hidden" name="date" value="<%= s.getDate() %>">
 			    <button type="<%= canReserve ? "submit" : "button" %>"
 			            class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> me-2 mb-2"
 			            <%= !canReserve ? "disabled" : "" %>>

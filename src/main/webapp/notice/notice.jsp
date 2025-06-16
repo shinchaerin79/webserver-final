@@ -1,16 +1,33 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="dao.UserRepository" %>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <title>공지사항</title>
+<script>
+	function isUserManger(user_role){
+    	if(user_role == "USER"){
+        	alert("관리자만 공지사항을 관리할 수 있습니다");
+        	return;
+    	} 
+    	else {
+        	window.location.href = "editNotice.jsp";
+    	}
+	}
+	
+</script>
 </head>
 <body>
 <div class="container py-4">
-    <%@ include file="menu.jsp" %>   
-    <%@ include file="dbconn.jsp" %>
+    <%@ include file="../menu.jsp" %>   
+    <%@ include file="../dbconn.jsp" %>
     
-    <a href="editNotice.jsp" class="btn btn-primary">공지사항 관리</a>
+    <%
+    	String user_role= (String) request.getParameter("role");
+    %>
+    <button class="btn btn-primary" onclick="isUserManger('<%= user_role %>')">공지사항 관리</button>
+    
     <h1>공지사항</h1>
     
     <div class="row row-cols-1 row-cols-md-3 g-4">
