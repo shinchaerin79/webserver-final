@@ -11,3 +11,5 @@ CREATE TABLE users (
 );
 
 ALTER TABLE users ADD UNIQUE (username);
+
+select * from users;

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
+<%@ include file="../menu.jsp" %> 
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,8 +26,7 @@
 </head>
 <body>
 <div class="container py-4">
-    <%@ include file="menu.jsp" %>   
-    <%@ include file="dbconn.jsp" %>
+    <%@ include file="../dbconn.jsp" %>
 
     <%
             ResultSet rs = null;
@@ -50,7 +50,7 @@
     				<div class="col">
     					<div class="card h-100 text-center">
         					<div class="card-body d-flex flex-column">
-            					<img src='./resources/images/<%=posterName %>' class="card-img-top mb-2" style="height: 500px; width: 100%; object-fit: cover;">
+            					<img src='../resources/images/<%=posterName %>' class="card-img-top mb-2" style="height: 500px; width: 100%; object-fit: cover;">
             					<h5 class="card-title"><%= name %></h5>
             
             					<div style="position: relative;">
@@ -65,7 +65,11 @@
 
             					<p><strong>개봉일:</strong> <%= releaseDate %> &nbsp;&nbsp; 영상 길이: <%= length %>분</p>
             					<p><strong>장르:</strong> <%= genre != null ? genre : "장르 미정" %></p>
-            					<a href="id=<%= id %>" class="btn btn-primary btn-sm mt-auto">영화 예매하러 가기</a>
+            					<p> 
+            						<a href="./review.jsp?<%= id %>" class="btn btn-secondary btn-sm mt-auto">리뷰</a> 
+            						<a href="../schedule/movieSchedule.jsp?title=<%= java.net.URLEncoder.encode(name, "utf-8") %>"
+   												class="btn btn-primary btn-sm mt-auto">영화 예매하러 가기</a>
+            					</p>
         					</div>
     					</div>
 					</div>  

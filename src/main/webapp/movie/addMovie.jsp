@@ -3,13 +3,13 @@
 <%@ page import="com.oreilly.servlet.multipart.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import ="java.sql.*"%>
-<%@ include file ="dbconn.jsp" %>
+<%@ include file ="../dbconn.jsp" %>
 
 <%
 	request.setCharacterEncoding("utf-8");
 
 	if(request.getMethod().equalsIgnoreCase("POST")){
-		String realFolder = application.getRealPath("/resources/images");
+		String realFolder = application.getRealPath("../resources/images");
 		String encType="utf-8";
 		
 		int maxSize=5*1024*1024;
@@ -52,7 +52,7 @@
 </head>
 <body>
 <div class="container py-4">
-	<%@ include file="menu.jsp" %>   
+	<%@ include file="../menu.jsp" %>   
 	<div class="p-5 mb-4 bg-body-tertiary rounded-3">
 		<div class="container-fluid py-5">
         	<h1 class="display-5 fw-bold">영화 추가</h1>   

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
-<%@ include file="dbconn.jsp" %>
+<%@ include file="../dbconn.jsp" %>
 <%
     request.setCharacterEncoding("utf-8");
 
@@ -16,8 +16,12 @@
         } catch (Exception e) {
             out.println("삭제 오류: " + e.getMessage());
         }
-    } else if ("top".equals(action) && n_id != null) {
+        
+    } 
+    else if ("top".equals(action) && n_id != null) {
+    	
         boolean is_top = Boolean.parseBoolean(request.getParameter("is_top"));
+        
         try {
             PreparedStatement pstmt = conn.prepareStatement("UPDATE notice SET is_top=? WHERE n_id=?");
             pstmt.setBoolean(1, is_top);
@@ -37,7 +41,7 @@
 </head>
 <body>
 <div class="container py-4">
-    <%@ include file="menu.jsp" %>   
+    <%@ include file="../menu.jsp" %>   
 
     <a href="addNotice.jsp" class="btn btn-success">공지사항 작성하기</a>
     <a href="notice.jsp" class="btn btn-primary">공지사항으로 돌아가기</a>
