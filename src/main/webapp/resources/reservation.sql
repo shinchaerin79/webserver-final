@@ -9,7 +9,7 @@ CREATE TABLE reservation (
     seat_number      VARCHAR(10) NOT NULL COMMENT '좌석 번호',
     reserved_at      DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '예매 일시',
     is_canceled      BOOLEAN DEFAULT FALSE COMMENT '취소 여부',
-    schedule_id      BIGINT NOT NULL COMMENT '스케줄 ID',
+    schedule_id      INT NOT NULL COMMENT '스케줄 ID',  -- 여기 INT로 수정
     user_id          BIGINT NOT NULL COMMENT '예매한 사용자 ID',
 
     FOREIGN KEY (schedule_id) REFERENCES schedule(id) ON DELETE CASCADE ON UPDATE CASCADE,
