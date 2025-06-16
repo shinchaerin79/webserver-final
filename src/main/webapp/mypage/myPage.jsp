@@ -3,24 +3,43 @@
 <%@ page import="dao.ReservationRepository, dto.Reservation, java.util.List" %>
 
 <%
-    String userId = (String) session.getAttribute("userId");
-	if (userId == null) {
+	String username = (String) session.getAttribute("userId");
+	if (username == null) {
 		response.sendRedirect("../auth/login.jsp");
 	    return;
 	}
 
-    ReservationRepository repo = new ReservationRepository(conn);
-    List<Reservation> reservations = repo.getReservationsByUserId(userId);
+	Long userId = null;
+	String findIdSql = "SELECT id FROM users WHERE username = ?";
+	PreparedStatement pstmt = conn.prepareStatement(findIdSql);
+	pstmt.setString(1, username);
+	ResultSet rs = pstmt.executeQuery();
+
+	if (rs.next()) {
+	    userId = rs.getLong("id");
+	} else {
+	    out.println("존재하지 않는 사용자입니다.");
+	    return;
+	}
+	rs.close();
+	pstmt.close();
+
+	ReservationRepository repo = new ReservationRepository(conn);
+	List<Reservation> reservations = repo.getReservationsByUserId(String.valueOf(userId)); // 또는 userId.toString()
 %>
-<div class="container py-4">
-<%@ include file="../menu.jsp" %> 
+
+<%
+    Object uid = session.getAttribute("userId");
+%>
+
 <html>
 <head>
     <title>마이페이지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
+<div class="container py-4">
+<%@ include file="../menu.jsp" %> 
     <h2>마이페이지</h2>
 
 <!-- 비밀번호 변경 -->
@@ -58,6 +77,7 @@
                 <th>상영관</th>
                 <th>시간</th>
                 <th>좌석</th>
+                <th>예매 일시</th>
                 <th>취소</th>
             </tr>
         </thead>
@@ -65,7 +85,7 @@
         <%
             if (reservations.isEmpty()) {
         %>
-            <tr><td colspan="5">예매 내역이 없습니다.</td></tr>
+            <tr><td colspan="6">예매 내역이 없습니다.</td></tr>
         <%
             } else {
                 for (Reservation r : reservations) {
@@ -75,6 +95,7 @@
                 <td><%= r.getScreen() %></td>
                 <td><%= r.getTime() %></td>
                 <td><%= r.getSeat() %></td>
+                <td><%= r.getReservedAt() %></td>
                 <td>
                     <form action="cancelReservation.jsp" method="post">
                         <input type="hidden" name="reservationId" value="<%= r.getId() %>">
@@ -94,4 +115,3 @@
 </div>
 </body>
 </html>
-</div>

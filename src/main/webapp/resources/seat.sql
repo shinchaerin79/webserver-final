@@ -12,4 +12,4 @@ CREATE TABLE seat (
     FOREIGN KEY (schedule_id) REFERENCES schedule(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-SELECT * FROM seat WHERE schedule_id = 9;
+SELECT * FROM seat;

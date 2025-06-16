@@ -28,6 +28,8 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 
 
 %>
+<div class="container py-4">
+<%@ include file="../menu.jsp" %> 
 <html>
 <head>
 	<title>selectSeat</title>
@@ -179,5 +181,5 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 </div>
 </body>
 </html>
-
+</div>
 
