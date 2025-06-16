@@ -14,6 +14,9 @@
     ScheduleRepository dao = new ScheduleRepository(conn);
     List<Schedule> schedules = dao.getFilteredSchedule(title, time, screen);
 %>
+<div class="container py-4">
+<%@ include file="../menu.jsp" %>   
+
 <html>
 <head>
     <title>상영 시간표 관리 (관리자)</title>
@@ -104,3 +107,4 @@
 </div>
 </body>
 </html>
+</div>

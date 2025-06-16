@@ -11,13 +11,12 @@
 
     String currentPassword = request.getParameter("currentPassword");
     String newPassword = request.getParameter("newPassword");
-    String nickname = request.getParameter("nickname");
 
     String encryptedCurrent = PasswordUtil.encrypt(currentPassword);
     String encryptedNew = PasswordUtil.encrypt(newPassword);
 
     String checkSql = "SELECT * FROM users WHERE username = ? AND password = ?";
-    String updateSql = "UPDATE users SET password = ?, nickname = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET password = ? WHERE username = ?";
 
     try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
         checkStmt.setString(1, userId);
@@ -27,12 +26,11 @@
         if (rs.next()) {
             try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                 updateStmt.setString(1, encryptedNew);
-                updateStmt.setString(2, nickname);
-                updateStmt.setString(3, userId);
+                updateStmt.setString(2, userId);
                 updateStmt.executeUpdate();
 %>
                 <script>
-                    alert("정보가 성공적으로 수정되었습니다.");
+                    alert("비밀번호가 성공적으로 변경되었습니다.");
                     location.href = "myPage.jsp";
                 </script>
 <%

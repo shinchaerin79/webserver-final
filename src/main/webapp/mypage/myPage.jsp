@@ -12,7 +12,8 @@
     ReservationRepository repo = new ReservationRepository(conn);
     List<Reservation> reservations = repo.getReservationsByUserId(userId);
 %>
-
+<div class="container py-4">
+<%@ include file="../menu.jsp" %> 
 <html>
 <head>
     <title>마이페이지</title>
@@ -22,9 +23,9 @@
 <div class="container mt-5">
     <h2>마이페이지</h2>
 
-<!-- 사용자 정보 수정 -->
+<!-- 비밀번호 변경 -->
 <h4>비밀번호 변경</h4>
-<form action="updateInfo.jsp" method="post" class="mb-5">
+<form action="updatePassword.jsp" method="post" class="mb-5">
     <div class="mb-3">
         <label>기존 비밀번호</label>
         <input type="password" name="currentPassword" class="form-control" required>
@@ -33,12 +34,19 @@
         <label>새 비밀번호</label>
         <input type="password" name="newPassword" class="form-control" required>
     </div>
-    <div class="mb-3">
-        <label>별명</label>
-        <input type="text" name="nickname" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">수정하기</button>
+    <button type="submit" class="btn btn-primary">비밀번호 변경</button>
 </form>
+
+<!-- 닉네임 변경 -->
+<h4>닉네임 변경</h4>
+<form action="updateNickname.jsp" method="post" class="mb-5">
+    <div class="mb-3">
+        <label>새 닉네임</label>
+        <input type="text" name="nickname" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-secondary">닉네임 변경</button>
+</form>
+
 
 
     <!-- 예매 내역 -->
@@ -86,3 +94,4 @@
 </div>
 </body>
 </html>
+</div>
