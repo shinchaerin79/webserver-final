@@ -81,4 +81,33 @@ public class ReservationRepository {
             return false;
         }
     }
+    
+    // 관리자용: 전체 사용자 예매 내역 (영화별로 정렬)
+    public List<Reservation> getAllReservationsGroupedByMovie() {
+    	List<Reservation> list = new ArrayList<>();
+        String sql = "SELECT r.reservation_id, r.seat_number, r.reserved_at, r.user_id, " +
+                "s.title AS movie_title, s.screen, s.time " +
+                "FROM reservation r " +
+                "JOIN schedule s ON r.schedule_id = s.id " +
+                "WHERE r.is_canceled = false " +
+                "ORDER BY s.title ASC, r.reserved_at DESC";
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	ResultSet rs = pstmt.executeQuery();
+        	while(rs.next()) {
+                Reservation r = new Reservation();
+                r.setId(rs.getLong("reservation_id"));
+                r.setSeat(rs.getString("seat_number"));
+                r.setReservedAt(rs.getTimestamp("reserved_at"));
+                r.setUserId(rs.getString("user_id")); // 관리자 조회이므로 사용자 ID도 포함
+                r.setMovieTitle(rs.getString("movie_title"));
+                r.setScreen(rs.getString("screen"));
+                r.setTime(rs.getString("time"));
+                list.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

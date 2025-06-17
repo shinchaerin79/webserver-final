@@ -9,6 +9,7 @@ public class Reservation {
     private String time;       // schedule.time
     private String seat;       // reservation.seat_number
     private Timestamp reservedAt; // reservation.reserved_at
+    private String userId;
 
     // Getters and Setters
     public long getId() {
@@ -57,5 +58,13 @@ public class Reservation {
 
     public void setReservedAt(Timestamp reservedAt) {
         this.reservedAt = reservedAt;
+    }
+    
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
