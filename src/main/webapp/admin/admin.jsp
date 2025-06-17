@@ -18,8 +18,10 @@ if (!"admin".equals(session.getAttribute("userId"))) {
     <h2>관리자 기능</h2>
     <div class="d-grid gap-3 col-6 mx-auto mt-4">
         <a href="../movie/editMovie.jsp" class="btn btn-outline-primary">영화 목록 관리</a>
-        <a href="../notice/editNotice.jsp" class="btn btn-outline-success">공지사항 관리</a>
-        <a href="../schedule/scheduleManage.jsp" class="btn btn-outline-warning">상영 시간표 관리</a>
+        <a href="../notice/editNotice.jsp" class="btn btn-outline-primary">공지사항 관리</a>
+        <a href="../schedule/scheduleManage.jsp" class="btn btn-outline-primary">상영 시간표 관리</a>
+        <a href="../admin/reservationList.jsp" class="btn btn-outline-primary">전체 사용자 영화별 예매 내역 조회</a>
+
     </div>
 </div>
 </body>
