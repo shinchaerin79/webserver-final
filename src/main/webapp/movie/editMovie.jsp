@@ -17,12 +17,11 @@
 	<%@ include file="../menu.jsp" %>   
 	<%@ include file="../dbconn.jsp" %>
 	
-	<div class="p-5 mb-4 bg-body-tertiary rounded-3">
-		<div class="container-fluid py-5">
-			<h1 class="display-5 fw-bold">영화 추가/수정/삭제</h1>   
-      	</div>
-    </div>
+	<h1 class="display-5 fw-bold">영화 추가/수정/삭제</h1> 
+	<br>
 	<a href="addMovie.jsp" class="btn btn-primary">영화 추가</a>
+	<br>
+	<br>
     
 	<%
 			ResultSet rs = null;
