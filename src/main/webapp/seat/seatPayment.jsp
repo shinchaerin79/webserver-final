@@ -14,7 +14,7 @@
 	Long realUserId = null;
 
 	try {
-		// 1. username으로 숫자 ID 조회
+		// 1. username으로 숫자 ID, 닉네임 조회
 		String idSql = "SELECT id, nickname FROM users WHERE username = ?";
 		PreparedStatement idStmt = conn.prepareStatement(idSql);
 		idStmt.setString(1, username);
@@ -26,7 +26,8 @@
 			realUserId = idRs.getLong("id");
 			nickname = idRs.getString("nickname");
 			session.setAttribute("nickname", nickname);
-		} else {
+		} 
+		else {
 			out.println("해당 사용자 정보가 없습니다.");
 			return;
 		}
@@ -46,7 +47,7 @@
 		rs.close();
 		countStmt.close();
 
-		// 3. 결제 처리
+		// 3. 결제 처리: is_paid의 false를 true로 변경하는 거
 		String updateSql = "UPDATE seat SET is_paid = true WHERE selected_user = ? AND is_paid = false";
 		PreparedStatement updateStmt = conn.prepareStatement(updateSql);
 		updateStmt.setString(1, username);

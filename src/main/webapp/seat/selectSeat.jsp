@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="../dbconn.jsp" %>
 <%
+// 로그인 확인 기능 받아서 추가
 String userId = (String) session.getAttribute("userId");
 
 if (userId == null) {
@@ -10,7 +11,7 @@ if (userId == null) {
     String redirectURL = currentURL + (query != null ? "?" + query : "");
 
     String msg = java.net.URLEncoder.encode("로그인이 필요합니다. 로그인 후 이용해주세요.", "UTF-8");
-    String encodedRedirect = java.net.URLEncoder.encode(redirectURL, "UTF-8");
+    String encodedRedirect = java.net.URLEncoder.encode(redirectURL, "UTF-8");    
 
     response.sendRedirect(request.getContextPath() + "/auth/login.jsp?msg=" + msg + "&redirect=" + encodedRedirect);
     return;
@@ -28,8 +29,6 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 
 
 %>
-<div class="container py-4">
-<%@ include file="../menu.jsp" %> 
 <html>
 <head>
 	<title>selectSeat</title>
@@ -61,50 +60,52 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 	<script>
 	const scheduleId = <%= scheduleId %>;
 	
-    function selectSeat(button, seatNumber, userID, schedule_Id) {
+	function selectSeat(button, seatNumber, userID, schedule_Id) {
     	// 에러 해결 확인 용
     	console.log("선택된 좌석번호:", seatNumber);
         console.log("사용자 ID:", userID);
         console.log("스케줄 ID:", schedule_Id);
         
-        // 이미 누군가 결제, 선택되었으면 선택 불가
-        if (button.classList.contains('btn-secondary')) return;
+        // 이미 누군가 결제, 선택되었으면 선택 불가 -> disable 비활성화 추가해서 딱히 기능은 없음ㅎ
+		if (button.classList.contains('btn-secondary')) return;
 		
         // 비동기식 데이터 전달
-        fetch('seatUpdate.jsp', {
-            method: 'POST',
+		fetch('seatUpdate.jsp', {
+			method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'seat_number=' + seatNumber + '&user_id=' + userID + '&scheduleId=' + schedule_Id
-        })
+		})
         
-        .then(response => response.text())
+		.then(response => response.text())
         
-        .then(data => {
-            if (data.trim() === "SELECTED") { // 좌석 선택
+		.then(data => {
+			if (data.trim() === "좌석선택") { // 좌석 선택
                 button.classList.remove('btn-success');
                 button.classList.add('btn-warning');
             } 
-            else if (data.trim() === "UNSELECT") { // 선택 취소
-                button.classList.remove('btn-warning');
-                button.classList.add('btn-success');
+			else if (data.trim() === "좌석취소") { // 선택 취소
+				button.classList.remove('btn-warning');
+				button.classList.add('btn-success');
             } 
-            else {
-                alert("선택 실패: " + data);
-            }
+			else {
+            	// 에러 확인용임
+				alert("선택 실패: " + data);
+			}
             
-        });
-    }
-
-    function fetchSeatStatus() {
-    	// 5초 후 리로드할 때 최신 상타 반영하기 위해
-        fetch('seatStatus.jsp?scheduleId=' + scheduleId)
-        .then(res => res.text())
-        .then(html => {
+		});
+	}
+	
+	//실시간 반영하기 위한 함수임
+    function seatStatus() {
+    	// 5초 후 리로드할 때 최신 상타 반영하기 위해 실시간이 좋을 것 같아서
+		fetch('seatStatus.jsp?scheduleId=' + scheduleId)
+		.then(res => res.text())
+		.then(html => {
             document.querySelector('.seat-grid').innerHTML = html;
         });
     }
 
-    setInterval(fetchSeatStatus, 5000);
+	setInterval(seatStatus, 5000); // 리로드되는 시간은 임의로 정했음
 </script>
 
 
@@ -135,7 +136,7 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 		    pstmt.setInt(1, scheduleId);
 		    ResultSet rs = pstmt.executeQuery();
 
-		    String safeUserId = userId != null ? userId.replace("'", "\\'") : "";
+		    String safeUserId = userId != null ? userId.replace("'", "\\'") : ""; // 오류 방비 용
 
 		    while (rs.next()) {
 		        int seat_number = rs.getInt("seat_number");
@@ -143,24 +144,29 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 		        boolean isPaid = rs.getBoolean("is_paid");
 		        int schedule_id=rs.getInt("schedule_id");
 
-		        String btnClass = "btn-success"; // 기본 좌석 색
+		        String btnClass = "btn-success"; // 기본 좌석 색(초록색 마음에 안들면 나중에 변경)
 		        
-		        if (isPaid) btnClass = "btn-secondary"; // 결제 완료된 색
+		        if (isPaid) {
+		        	btnClass = "btn-secondary"; // 결제 완료된 색(회색이 나을 것 같아서 그냥 secondary로 함)
+		        }
 		        
 		        else if (selected_user != null) {
-		            if (selected_user.equals(userId)) btnClass = "btn-warning"; // 본인이 선택한 색
 		            
-		            else btnClass = "btn-secondary"; // 이미 다른 사람이 선택한 색
+		        	if (selected_user.equals(userId)) {
+		        		btnClass = "btn-warning"; // 본인이 선택한 색
+		        	}
+		            
+		            else {
+		            	btnClass = "btn-secondary"; // 이미 다른 사람이 선택한 색
+		            }
 		        }
 				
 		        //선택할 수 없는 좌석 비활성화 추가
 		        boolean isDisabled = btnClass.equals("btn-secondary") && selected_user != null && !selected_user.equals(userId);
 		%>
-		        <button class="btn seat-button <%= btnClass %>" 
-		            <%= isDisabled ? "disabled" : "" %>
-		            onclick="selectSeat(this, <%= seat_number %>, '<%= safeUserId %>', <%= scheduleId %>)">
-		            <%= isPaid ? "X" : seat_number %>
-		        </button>
+				<button class="btn seat-button <%= btnClass %>" <%= isDisabled ? "disabled" : "" %> 
+					onclick="selectSeat(this, <%= seat_number %>, '<%= safeUserId %>', <%= scheduleId %>)"> <%= isPaid ? "X" : seat_number %>
+                </button>
 	<%
 			}
 			rs.close();
@@ -172,14 +178,14 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 	%>
 	</div>
 
+	<!-- 결제 화면으로 이동 버튼 -->
 	<div class="text-center mt-4">
 		<form action="seatPayment.jsp" method="post">
-    		<input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>">
-    		<button type="submit" class="btn btn-primary">결제하기</button>
+			<input type="hidden" name="user_id" value="<%= session.getAttribute("userId") %>">
+			<button type="submit" class="btn btn-primary">결제하기</button>
 		</form>
 	</div>
 </div>
 </body>
 </html>
-</div>
 

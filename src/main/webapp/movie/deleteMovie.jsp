@@ -3,17 +3,17 @@
 <%@ include file="../dbconn.jsp" %>
 
 <%
-    String id = request.getParameter("id");
-    PreparedStatement stmt = null;
+	String id = request.getParameter("id");
+	PreparedStatement stmt = null;
 
-    try {
-        String sql = "DELETE FROM Movie WHERE id = ?";
-        stmt = conn.prepareStatement(sql);
-        stmt.setString(1, id);
-        int result = stmt.executeUpdate();
+	try {
+		String sql = "DELETE FROM Movie WHERE id = ?";
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, id);
+		int result = stmt.executeUpdate();
 
         if (result > 0) {
-            // 삭제 성공 후 목록 페이지로 리다이렉트
+			// 삭제 성공 후 목록 페이지 이동
             response.sendRedirect("editMovie.jsp");
         } else {
             out.println("<script>alert('삭제에 실패했습니다.');");

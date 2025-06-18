@@ -1,60 +1,64 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.io.*" %>
 <%@ include file="../dbconn.jsp" %>
 <%
-    request.setCharacterEncoding("UTF-8");
 
-    String id = request.getParameter("id");
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+	String id = request.getParameter("id");
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	String name = "";
+	String releaseDate = "";
+	String description = "";
+	String genre = "";
+	int length = 0;
 
-    // POST 요청이면 수정 처리
-    if ("POST".equalsIgnoreCase(request.getMethod())) {
-        String name = request.getParameter("name");
-        String releaseDate = request.getParameter("releaseDate");
-        int length = Integer.parseInt(request.getParameter("length"));
-        String description = request.getParameter("description");
-        String genre = request.getParameter("genre");
+	// post 수정 처리
+	if ("POST".equalsIgnoreCase(request.getMethod())) {
+		name = request.getParameter("name");
+		releaseDate = request.getParameter("releaseDate");
+		length = Integer.parseInt(request.getParameter("length"));
+		description = request.getParameter("description");
+		genre = request.getParameter("genre");
 
-        try {
-            String sql = "UPDATE Movie SET name=?, releaseDate=?, length=?, description=?, genre=? WHERE id=?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, name);
-            pstmt.setString(2, releaseDate);
-            pstmt.setInt(3, length);
-            pstmt.setString(4, description);
-            pstmt.setString(5, genre);
-            pstmt.setString(6, id);
-            pstmt.executeUpdate();
+		try {
+			String sql = "UPDATE Movie SET name=?, releaseDate=?, length=?, description=?, genre=? WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, releaseDate);
+			pstmt.setInt(3, length);
+			pstmt.setString(4, description);
+			pstmt.setString(5, genre);
+			pstmt.setString(6, id);
+			pstmt.executeUpdate();
 
-            response.sendRedirect("editMovie.jsp");
+			response.sendRedirect("editMovie.jsp");
             return;
         } catch (SQLException e) {
-            out.println("수정 중 오류 발생: " + e.getMessage());
+            out.println("수정 오류 발생: " + e.getMessage());
         } finally {
             if (pstmt != null) try { pstmt.close(); } catch (Exception e) {}
             if (conn != null) try { conn.close(); } catch (Exception e) {}
         }
     }
 
-    // GET 요청이면 영화 정보 조회
-    String name = "", releaseDate = "", description = "", genre = "";
-    int length = 0;
+	
+	// get 영화 정보 조회
+ 	
+	try {
+		String sql = "SELECT * FROM Movie WHERE id=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
 
-    try {
-        String sql = "SELECT * FROM Movie WHERE id=?";
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, id);
-        rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            name = rs.getString("name");
-            releaseDate = rs.getString("releaseDate");
-            length = rs.getInt("length");
-            description = rs.getString("description");
-            genre = rs.getString("genre");
-        } else {
+		if (rs.next()) {
+			name = rs.getString("name");
+			releaseDate = rs.getString("releaseDate");
+			length = rs.getInt("length");
+			description = rs.getString("description");
+			genre = rs.getString("genre");
+		} 
+        else {
             out.println("<p>영화를 찾을 수 없습니다.</p>");
         }
     } catch (SQLException e) {

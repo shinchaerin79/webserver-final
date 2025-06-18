@@ -1,5 +1,7 @@
 use MovieDB;
 
+drop table users;
+
 CREATE TABLE users (
     id     		BIGINT PRIMARY KEY AUTO_INCREMENT,
     username    VARCHAR(30) NOT NULL,
@@ -13,3 +15,7 @@ CREATE TABLE users (
 ALTER TABLE users ADD UNIQUE (username);
 
 select * from users;
+
+ALTER TABLE users MODIFY id BIGINT AUTO_INCREMENT;
+
+ALTER TABLE users ADD UNIQUE INDEX idx_users_nickname (nickname);
