@@ -13,3 +13,14 @@ CREATE TABLE reviewdata (
     FOREIGN KEY (username) REFERENCES users(nickname) ON DELETE CASCADE,
     FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE
 );
+
+-- 기존 외래키 삭제
+ALTER TABLE reviewdata
+DROP FOREIGN KEY fk_review_username;
+
+-- 외래키 다시 생성 (ON DELETE CASCADE + ON UPDATE CASCADE)
+ALTER TABLE reviewdata
+ADD CONSTRAINT fk_review_username
+FOREIGN KEY (username) REFERENCES users(nickname)
+ON DELETE CASCADE
+ON UPDATE CASCADE;

@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 
 <%
-if (!"admin".equals(session.getAttribute("userId"))) {
-    response.sendRedirect("../auth/login.jsp");
-    return;
-}
+    String role = (String) session.getAttribute("role");
+    if (!"ADMIN".equals(role)) {
+        response.sendRedirect("../auth/login.jsp");
+        return;
+    }
 %>
+
 <div class="container py-4">
 <%@ include file="../menu.jsp" %> 
 <html>

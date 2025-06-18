@@ -3,12 +3,15 @@
 
 <%
     String userId = (String) session.getAttribute("userId");
+System.out.println("세션 userId 값: " + userId);
+
     if (userId == null) {
         response.sendRedirect("../auth/login.jsp");
         return;
     }
 
     String newNickname = request.getParameter("nickname");
+    System.out.println("입력된 닉네임: " + newNickname);
 
     String checkSql = "SELECT nickname FROM users WHERE username = ?";
     String updateSql = "UPDATE users SET nickname = ? WHERE username = ?";
@@ -19,6 +22,7 @@
 
         if (rs.next()) {
             String currentNickname = rs.getString("nickname");
+            System.out.println("현재 닉네임: " + currentNickname);
 
             if (currentNickname.equals(newNickname)) {
 %>
@@ -31,6 +35,9 @@
                 try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                     updateStmt.setString(1, newNickname);
                     updateStmt.setString(2, userId);
+                    System.out.println("닉네임 변경 시도: " + currentNickname + " ➡ " + newNickname);
+                    int result = updateStmt.executeUpdate();
+                    System.out.println("변경된 행 수: " + result);
                     updateStmt.executeUpdate();
                     session.setAttribute("nickname", newNickname);
 %>
