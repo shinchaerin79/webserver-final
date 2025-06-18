@@ -13,7 +13,7 @@
 	String genre = "";
 	int length = 0;
 
-	// post 수정 처리
+	// post 요청 영화 업데이트
 	if ("POST".equalsIgnoreCase(request.getMethod())) {
 		name = request.getParameter("name");
 		releaseDate = request.getParameter("releaseDate");
@@ -42,29 +42,29 @@
         }
     }
 
-	
-	// get 영화 정보 조회
- 	
-	try {
-		String sql = "SELECT * FROM Movie WHERE id=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, id);
-		rs = pstmt.executeQuery();
+	else{// get 요청 영화 보여주기 
+		try {
+			String sql = "SELECT * FROM Movie WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 
-		if (rs.next()) {
-			name = rs.getString("name");
-			releaseDate = rs.getString("releaseDate");
-			length = rs.getInt("length");
-			description = rs.getString("description");
-			genre = rs.getString("genre");
-		} 
-        else {
-            out.println("<p>영화를 찾을 수 없습니다.</p>");
-        }
-    } catch (SQLException e) {
-        out.println("영화 정보 불러오기 오류: " + e.getMessage());
-    }
+			if (rs.next()) {
+				name = rs.getString("name");
+				releaseDate = rs.getString("releaseDate");
+				length = rs.getInt("length");
+				description = rs.getString("description");
+				genre = rs.getString("genre");
+			} 
+	        else {
+	            out.println("<p>영화를 찾을 수 없습니다.</p>");
+	        }
+	    } catch (SQLException e) {
+	        out.println("영화 정보 불러오기 오류: " + e.getMessage());
+	    }
+	}
 %>
+ 	
 
 <html>
 <head>

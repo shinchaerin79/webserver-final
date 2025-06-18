@@ -63,7 +63,7 @@
 	
 	%>
                 <form action="<%= request.getContextPath() %>/addReview.do" method="post">
-                    <input type="hidden" name="username" value="<%=nickname%>">
+                    <input type="hidden" name="username" value="<%=nickname%>"><!-- 이름보다는 아이디가 좋을 것 같아서 나중에 변경 그래서 리뷰 테이블에는 속성 이름이 username임 -->
                     <input type="hidden" name="movie_id" value="<%= movie_id != null ? movie_id : "" %>">
                     <input type="hidden" name="title" value="<%= title %>">
 
