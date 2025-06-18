@@ -19,3 +19,8 @@ select * from users;
 ALTER TABLE users MODIFY id BIGINT AUTO_INCREMENT;
 
 ALTER TABLE users ADD UNIQUE INDEX idx_users_nickname (nickname);
+
+UPDATE users
+SET role = 'ADMIN'
+WHERE username = 'admin';
+

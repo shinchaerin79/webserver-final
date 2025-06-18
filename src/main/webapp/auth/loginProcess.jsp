@@ -9,7 +9,7 @@
 
     String password = PasswordUtil.encrypt(rawPassword);  // 비밀번호 암호화
 
-    String sql = "SELECT nickname FROM users WHERE username = ? AND password = ?";
+    String sql = "SELECT nickname, role FROM users WHERE username = ? AND password = ?";
 
     try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, username);
@@ -18,17 +18,19 @@
         ResultSet rs = pstmt.executeQuery();
         if (rs.next()) {
             String nickname = rs.getString("nickname");
-
+            String role = rs.getString("role"); 
+            
             session.setAttribute("userId", username);
             session.setAttribute("nickname", nickname);
+            session.setAttribute("role", role); 
             
-            // 관리자(admin) 계정일 경우 → 관리자 페이지로 이동
-            if ("admin".equals(username)) {
+            // 관리자면 관리자 페이지로 이동
+            if ("ADMIN".equals(role)) {
                 response.sendRedirect("../admin/admin.jsp");
                 return;
             }
 
-            // 일반 사용자 로그인 성공 후 이동
+            // 일반 사용자
             if (redirect != null && !redirect.isEmpty()) {
                 response.sendRedirect(redirect);
             } else {
