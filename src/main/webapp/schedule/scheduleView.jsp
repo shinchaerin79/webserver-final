@@ -19,7 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .time-button {
-            width: 100px;
+			width: 140px;
             margin: 5px;
         }
         .movie-title {
@@ -92,11 +92,15 @@
 				    <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
 				    <input type="hidden" name="title" value="<%= s.getTitle() %>">
     				<input type="hidden" name="date" value="<%= s.getDate() %>">
-				    <button type="<%= canReserve ? "submit" : "button" %>"
-				            class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> time-button"
-				            <%= !canReserve ? "disabled" : "" %>>
-				        <%= s.getTime() %> (<%= canReserve ? "예매 가능" : "마감" %>)
-				    </button>
+<button type="<%= canReserve ? "submit" : "button" %>"
+        class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> time-button text-center"
+        style="line-height: 1.2;"
+        <%= !canReserve ? "disabled" : "" %>>
+    <%= s.getTime() %><br>
+    (<%= canReserve ? "예매 가능" : "예매 마감" %>)
+</button>
+
+
 				</form>
 
                 <%
