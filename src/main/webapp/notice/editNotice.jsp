@@ -47,10 +47,14 @@
 <body>
 <div class="container py-4">
     <%@ include file="../menu.jsp" %>   
-
+	<h1>공지사항</h1>
+	
+	<br>
 	<a href="addNotice.jsp" class="btn btn-success">공지사항 작성하기</a>
 	<a href="notice.jsp" class="btn btn-primary">공지사항으로 돌아가기</a>
-	<h1>공지사항</h1>
+	
+	<br>
+	<br>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
 		<%
