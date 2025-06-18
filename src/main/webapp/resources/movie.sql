@@ -24,4 +24,5 @@ INSERT INTO Movie (name, releaseDate, length, posterName, genre, description)
 VALUES
 ('드래곤 길들이기', '2025-06-06', 125, 'drangon.jpg', '판타지', '수백년간 지속되어온 바이킹과 드래곤의 전쟁. 드래곤을 없애는 것이 삶의 모든 목적인 바이킹들과 다른 신념을 가진 ‘히컵’은 무리 속에 속하지 못하고 족장인 아버지에게도 인정받지 못한다..');
 
+delete from Movie;
 
