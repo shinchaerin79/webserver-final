@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="dao.ScheduleRepository, dto.Schedule" %>
 <%@ include file="../dbconn.jsp" %> 
+ <div class="container py-4">
+<%@ include file="../menu.jsp" %>   
  
 <%
     int id = Integer.parseInt(request.getParameter("id"));
@@ -50,3 +52,4 @@
 </div>
 </body>
 </html>
+</div>

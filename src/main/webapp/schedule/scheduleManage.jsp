@@ -52,10 +52,16 @@
         <div class="col-md-3">
             <select name="screen" class="form-select">
                 <option value="">상영관 선택</option>
-                <option value="1관" <%= screen.equals("1관") ? "selected" : "" %>>1관</option>
-                <option value="2관" <%= screen.equals("2관") ? "selected" : "" %>>2관</option>
-                <option value="4관" <%= screen.equals("4관") ? "selected" : "" %>>4관</option>
-            </select>
+                <option value="">선택</option>
+                <option value="1관">1관</option>
+                <option value="2관">2관</option>
+                <option value="3관">3관</option>
+                <option value="4관">4관</option>
+                <option value="5관">5관</option>
+                <option value="6관">6관</option>
+                <option value="7관">7관</option>
+                <option value="8관">8관</option>
+                <option value="9관">9관</option></select>
         </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary w-100">검색</button>
