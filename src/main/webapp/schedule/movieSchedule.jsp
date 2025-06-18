@@ -37,6 +37,14 @@
 <head>
     <title><%= title %> 상영 시간표</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <style>
+	        .time-button {
+	            width: 140px;
+	            margin: 5px;
+	            line-height: 1.2;
+	        }
+	    </style>
 </head>
 <body>
 <div class="container py-4">
@@ -86,11 +94,14 @@
 			    <input type="hidden" name="scheduleId" value="<%= s.getId() %>">
 			    <input type="hidden" name="title" value="<%= s.getTitle() %>">
     			<input type="hidden" name="date" value="<%= s.getDate() %>">
-			    <button type="<%= canReserve ? "submit" : "button" %>"
-			            class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> me-2 mb-2"
-			            <%= !canReserve ? "disabled" : "" %>>
-			        <%= s.getTime() %> (<%= canReserve ? "예매 가능" : "예매 마감" %>)
-			    </button>
+<button type="<%= canReserve ? "submit" : "button" %>"
+        class="btn <%= canReserve ? "btn-outline-primary" : "btn-secondary" %> time-button text-center"
+        style="line-height: 1.2;"
+        <%= !canReserve ? "disabled" : "" %>>
+    <%= s.getTime() %><br>
+    (<%= canReserve ? "예매 가능" : "예매 마감" %>)
+</button>
+
 			</form>
 
             <%
