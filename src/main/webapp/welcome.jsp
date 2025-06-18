@@ -10,12 +10,12 @@
 	<%@ include file="menu.jsp" %>   
      
 	<%! String greeting="영화 예매 홈페이지에 오신 것을 환영합니다";
-	String tagline="Welcome to Movie Ticket Homepage!"; %>
+	String tagline="Welcome to MovieTime Homepage!"; %>
 	
-	<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+	<div class="p-4 mb-4 bg-body-tertiary rounded-3">
 		<div class="container-fluid py-5">
         	<h1 class="display-5 fw-bold"><%=greeting%></h1>
-        	<p class="col-md-8 fs-4">MovieTicket</p>      
+        	<p class="col-md-8 fs-4">MovieTime</p>      
       	</div>
     </div>
     <div class="row align-items-md-stretch   text-center">
@@ -41,6 +41,27 @@
         </div>
       </div>   
     </div> 
+    
+<h2 class="mt-5 mb-3">진행 중인 이벤트</h2>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="alert alert-info">
+            <h5 class="alert-heading">🍿 주말 예매 30% 할인!</h5>
+            <p>이번 주 금~일요일까지 모든 영화 예매 시 30% 할인 혜택을 드립니다. <br>지금 바로 예매하세요!</p>
+            <hr>
+            <a href="./schedule/scheduleView.jsp" class="btn btn-sm btn-primary">예매하러 가기</a>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="alert alert-success">
+            <h5 class="alert-heading">🎁 리뷰 작성 이벤트</h5>
+            <p>관람 후 리뷰를 남기면 추첨을 통해 <strong>영화관람권</strong>을 드립니다! <br>당첨자는 매주 월요일 공지됩니다.</p>
+            <hr>
+            <a href="./movie/movies.jsp" class="btn btn-sm btn-success">리뷰 작성하러 가기</a>
+        </div>
+    </div>
+</div>
+    
     
 </div>
 </body>
