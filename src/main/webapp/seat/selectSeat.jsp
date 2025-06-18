@@ -112,6 +112,7 @@ if (scheduleIdStr != null && !scheduleIdStr.isEmpty()) {
 </head>
 <body>
 <div class="container py-4">
+	<%@ include file="../menu.jsp" %>   
 	<h2 class="text-center mb-4">좌석 선택</h2>
 	
 	<div class="d-flex justify-content-center gap-4 mb-3">
