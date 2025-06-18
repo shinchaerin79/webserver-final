@@ -47,12 +47,18 @@
     }
 
 %>
+<style>
+	.review-score {
+        color: #ffc107; /* gold color for stars */
+        margin-bottom: 10px;
+    }
+</style>
 <body>
 <div class="container py-4">
 	<%@ include file="../menu.jsp" %>  
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
 		<div class="container-fluid py-5">
-        	<h1 class="display-5 fw-bold"> <%= title %> 영화 관람평</h1>  
+			<h1 class="display-5 fw-bold"> <%= title %> 영화 관람평</h1>  
       	</div>
     </div>
     <div class="card-body">
@@ -62,32 +68,32 @@
     		else { 
 	
 	%>
-                <form action="<%= request.getContextPath() %>/addReview.do" method="post">
-                    <input type="hidden" name="username" value="<%=nickname%>"><!-- 이름보다는 아이디가 좋을 것 같아서 나중에 변경 그래서 리뷰 테이블에는 속성 이름이 username임 -->
-                    <input type="hidden" name="movie_id" value="<%= movie_id != null ? movie_id : "" %>">
-                    <input type="hidden" name="title" value="<%= title %>">
-
+				<form action="<%= request.getContextPath() %>/addReview.do" method="post">
+					<input type="hidden" name="username" value="<%=nickname%>"><!-- 이름보다는 아이디가 좋을 것 같아서 나중에 변경 그래서 리뷰 테이블에는 속성 이름이 username임 -->
+					<input type="hidden" name="movie_id" value="<%= movie_id != null ? movie_id : "" %>">
+					<input type="hidden" name="title" value="<%= title %>">
+					
                     <div class="mb-3">
                         <label class="form-label">평점</label>
-                        <select name="scope">
-                        <option value="1">*</option>
-                        <option value="2">**</option>
-                        <option value="3">***</option>
-                        <option value="4">****</option>
-                        <option value="5" selected>*****</option>
-                        </select>
-                    </div>
-
+						<select class="review-score" name="scope">
+							<option value="1">★</option>
+							<option value="2">★★</option>
+							<option value="3">★★★</option>
+							<option value="4">★★★★</option>
+							<option value="5" selected>★★★★★</option>
+						</select>
+					</div>
+					
                     <div class="mb-3">
-                        <label class="form-label">내용</label>
-                        <textarea name="contents" class="form-control" rows="6" required></textarea>
-                    </div>
-
+						<label class="form-label">내용</label>
+						<textarea name="contents" class="form-control" rows="6" required></textarea>
+					</div>
+					
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-success">리뷰 작성 완료</button>
-                    </div>
-                </form>
-                <% } %>
+						<button type="submit" class="btn btn-success">리뷰 작성 완료</button>
+					</div>
+				</form>
+				<% } %>
             </div>
         </div>
 </div>

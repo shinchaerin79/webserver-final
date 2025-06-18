@@ -4,24 +4,24 @@
 <%@ include file="../dbconn.jsp" %>
 <%@ page import="java.sql.*" %>
 <%
-List<reviewDTO> reviews = (List<reviewDTO>) request.getAttribute("reviews");
-String titleParam = request.getParameter("title");
-
-int movieId = -1;
-
-if (titleParam != null && !titleParam.trim().isEmpty()) {
-    String sql = "SELECT * FROM Movie WHERE name = ?";
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-    pstmt.setString(1, titleParam);
-    ResultSet rs = pstmt.executeQuery();
-
-    if (rs.next()) {
-        movieId = rs.getInt("id");
-    }
-    rs.close();
-    pstmt.close();
-}
-String encodedTitle = titleParam != null ? java.net.URLEncoder.encode(titleParam, "utf-8") : "";
+	List<reviewDTO> reviews = (List<reviewDTO>) request.getAttribute("reviews");
+	String titleParam = request.getParameter("title");
+	
+	int movieId = -1;
+	
+	if (titleParam != null && !titleParam.trim().isEmpty()) {
+		String sql = "SELECT * FROM Movie WHERE name = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, titleParam);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if (rs.next()) {
+			movieId = rs.getInt("id");
+		}
+		rs.close();
+		pstmt.close();
+	}
+	String encodedTitle = titleParam != null ? java.net.URLEncoder.encode(titleParam, "utf-8") : "";
 %>
 <html>
 <head>

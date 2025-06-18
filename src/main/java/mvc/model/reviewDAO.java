@@ -34,6 +34,7 @@ public class reviewDAO {
     			list.add(r);
             }
     		rs.close();
+    		
             System.out.println(">>> 리뷰 목록 불러오기 성공");
 
         } catch (Exception e) {
@@ -80,7 +81,9 @@ public class reviewDAO {
             
             if (rs.next()) {
             	id = rs.getLong("id");
+            	
                 System.out.println(">>> 영화 제목으로 ID 찾음: " + id);
+                
             } else {
                 System.out.println(">>> 해당 영화 제목 없음");
             }

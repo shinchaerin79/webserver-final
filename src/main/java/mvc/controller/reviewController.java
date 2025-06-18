@@ -42,7 +42,7 @@ public class reviewController extends HttpServlet {
     			e.printStackTrace();
     		}
     		
-    		//에러 해결 용
+    		//에러 해결 용임
     		if (movieId == null) {
     			response.sendError(HttpServletResponse.SC_NOT_FOUND, "해당 영화 정보를 찾을 수 없습니다.");
     			return;
