@@ -5,49 +5,32 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <title>공지사항</title>
-<script>
-	function isUserManger(user_role){
-    	if(user_role == "USER"){
-        	alert("관리자만 공지사항을 관리할 수 있습니다");
-        	return;
-    	} 
-    	else {
-        	window.location.href = "editNotice.jsp";
-    	}
-	}
-	
-</script>
 </head>
 <body>
 <div class="container py-4">
-    <%@ include file="../menu.jsp" %>   
-    <%@ include file="../dbconn.jsp" %>
+	<%@ include file="../menu.jsp" %>   
+	<%@ include file="../dbconn.jsp" %>
     
-    <%
-    	String user_role= (String) request.getParameter("role");
-    %>
-    <button class="btn btn-primary" onclick="isUserManger('<%= user_role %>')">공지사항 관리</button>
-    
-    <h1>공지사항</h1>
+	<h1>공지사항</h1>
     
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <%
-        try {
-            ResultSet rs = null;
-            PreparedStatement pstmt = null;
+		<%
+			try {
+				ResultSet rs = null;
+				PreparedStatement pstmt = null;
             
-        	String sql = "SELECT * FROM notice ORDER BY is_top DESC, writingTime DESC";
-       	 	pstmt = conn.prepareStatement(sql);
-        	rs = pstmt.executeQuery();
+				String sql = "SELECT * FROM notice ORDER BY is_top DESC, writingTime DESC";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
 
-        	while (rs.next()) {
-            	String n_id = rs.getString("n_id");
-            	String time = rs.getString("writingTime");
-            	String n_title = rs.getString("n_title");
-            	String n_text = rs.getString("n_text");
-            	boolean is_top = rs.getBoolean("is_top");
+				while (rs.next()) {
+					String n_id = rs.getString("n_id");
+					String time = rs.getString("writingTime");
+					String n_title = rs.getString("n_title");
+					String n_text = rs.getString("n_text");
+					boolean is_top = rs.getBoolean("is_top");
                     
-        %>
+		%>
         <div class="col">
             <div class="card h-100">
                 <div class="card-body">

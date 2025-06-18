@@ -25,51 +25,57 @@
 </head>
 <body>
 <div class="container py-4">
-<%@ include file="../menu.jsp" %>   
+	<%@ include file="../menu.jsp" %>   
     <%@ include file="../dbconn.jsp" %>
 
-    <%
-            ResultSet rs = null;
-            PreparedStatement stmt = null;
-            try {
-                String sql = "SELECT * FROM Movie";
-                stmt = conn.prepareStatement(sql);
-                rs = stmt.executeQuery();
+	<%
+			ResultSet rs = null;
+			PreparedStatement stmt = null;
+			try {
+				String sql = "SELECT * FROM Movie";
+				stmt = conn.prepareStatement(sql);
+				rs = stmt.executeQuery();
 	%>
              	<div class="row row-cols-1 row-cols-md-3 g-4">
-                <%
-                    while (rs.next()) {
-                        String id = rs.getString("id");
-                        String name = rs.getString("name");
-                        String description = rs.getString("description");
-                        String releaseDate = rs.getString("releaseDate");
-                        int length = rs.getInt("length");
-                        String genre = rs.getString("genre");
-                        String posterName = rs.getString("posterName");
+				<%
+					while (rs.next()) {
+						String id = rs.getString("id");
+						String name = rs.getString("name");
+						String description = rs.getString("description");
+						String releaseDate = rs.getString("releaseDate");
+						int length = rs.getInt("length");
+						String genre = rs.getString("genre");
+						String posterName = rs.getString("posterName");
+                        
+						int movieId=Integer.parseInt(id);
+
                 %>
     				<div class="col">
     					<div class="card h-100 text-center">
         					<div class="card-body d-flex flex-column">
-            					<img src='../resources/images/<%=posterName %>' class="card-img-top mb-2" style="height: 500px; width: 100%; object-fit: cover;">
-            					<h5 class="card-title"><%= name %></h5>
+								<img src='../resources/images/<%=posterName %>' class="card-img-top mb-2" style="height: 500px; width: 100%; object-fit: cover;">
+								<h5 class="card-title"><%= name %></h5>
             
             					<div style="position: relative;">
-                					<p id="desc-<%=id%>" class="card-text" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis; transition: max-height 0.3s ease;">
-                    					<%= description != null ? description : "설명이 없습니다." %>
+									<p id="desc-<%=id%>" class="card-text" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis; transition: max-height 0.3s ease;">
+     									<%= description != null ? description : "설명이 없습니다." %>
                 					</p>
                 					
-                					<% if (description != null && description.length() > 60) { %>
-                    					<button class="btn btn-link p-0" onclick="toggleDesc('<%=id%>')">더보기</button>
-                					<% } %>
+									<% 
+										if (description != null && description.length() > 60) { 
+									%>
+										<button class="btn btn-link p-0" onclick="toggleDesc('<%=id%>')">더보기</button>
+									<% 
+										} 
+									%>
             					</div>
 
             					<p><strong>개봉일:</strong> <%= releaseDate %> &nbsp;&nbsp; 영상 길이: <%= length %>분</p>
             					<p><strong>장르:</strong> <%= genre != null ? genre : "장르 미정" %></p>
             					<p> 
-            						<a href="./review.jsp?<%= id %>" class="btn btn-secondary btn-sm mt-auto">리뷰</a> 
-            						<a href="../schedule/movieSchedule.jsp?title=<%= java.net.URLEncoder.encode(name, "utf-8") %>"
-   												class="btn btn-primary btn-sm mt-auto">영화 예매하러 가기</a>
-            					</p>
+									<a href="../reviewList.do?title=<%= java.net.URLEncoder.encode(name, "utf-8") %>&movie_id=<%= movieId %>" class="btn btn-secondary btn-sm mt-auto">리뷰</a> 
+									<a href="../schedule/movieSchedule.jsp?title=<%= java.net.URLEncoder.encode(name, "utf-8") %>" class="btn btn-primary btn-sm mt-auto">영화 예매하러 가기</a>
+								</p>
         					</div>
     					</div>
 					</div>  
