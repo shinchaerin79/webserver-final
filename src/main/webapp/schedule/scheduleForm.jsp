@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<div class="container py-4">
+<%@ include file="../menu.jsp" %> 
 <html>
 <head>
     <title>상영 시간표 등록</title>
@@ -26,8 +28,14 @@
                 <option value="">선택</option>
                 <option value="1관">1관</option>
                 <option value="2관">2관</option>
+                <option value="3관">3관</option>
                 <option value="4관">4관</option>
-            </select>
+                <option value="5관">5관</option>
+                <option value="6관">6관</option>
+                <option value="7관">7관</option>
+                <option value="8관">8관</option>
+                <option value="9관">9관</option>
+                          </select>
         </div>
         <div class="mb-3">
             <label class="form-label">러닝타임 (분)</label>
@@ -39,3 +47,4 @@
 </div>
 </body>
 </html>
+</div>

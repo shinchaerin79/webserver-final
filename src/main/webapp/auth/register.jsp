@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<div class="container py-4">
+<%@ include file="../menu.jsp" %>   
 <html>
 <head>
     <title>회원가입</title>
@@ -26,3 +28,4 @@
 </div>
 </body>
 </html>
+</div>
