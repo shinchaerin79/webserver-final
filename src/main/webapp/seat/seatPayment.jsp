@@ -77,9 +77,22 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container py-5 text-center">
+	<%@ include file="../menu.jsp" %> 
 	<h1><%= session.getAttribute("nickname") %>님</h1>
-	<h2><%= purchaseSeat %>개의 좌석 결제가 완료되었습니다.</h2>
-	<p class="mb-4">결제 내역은 마이페이지에서 확인하실 수 있습니다.</p>
+	<%
+		if(purchaseSeat==0){
+			
+	%>
+		<h2>선택된 좌석이 없습니다</h2>
+	<%
+		}
+		else{
+			%>
+			<h2><%= purchaseSeat %>개의 좌석 결제가 완료되었습니다.</h2>
+			<p class="mb-4">결제 내역은 마이페이지에서 확인하실 수 있습니다.</p>
+			<% 
+		}
+	%>
 	<a href="../mypage/myPage.jsp" class="btn btn-success me-2">마이페이지 가기</a>
 	<a href="../movie/movies.jsp" class="btn btn-primary">영화 목록으로 돌아가기</a>
 </body>

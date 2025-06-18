@@ -64,14 +64,11 @@
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
 		<div class="container-fluid py-5">
         	<h1 class="display-5 fw-bold">영화 관람평</h1>  
-      	</div>
-    </div>
-
-    <button 
-    onclick="location.href='addReview.do?title=<%= encodedTitle %>&movie_id=<%= movieId %>'"
-    class="btn btn-success">
-    관람평 작성하러 가기
-</button>
+		</div>
+	</div>
+	
+	<button onclick="location.href='addReview.do?title=<%= encodedTitle %>&movie_id=<%= movieId %>'" class="btn btn-success"> 관람평 작성하러 가기 </button>
+    <br>
     <br>
 	
     <%
@@ -82,21 +79,41 @@
         <p>관람평을 작성해주세요.</p>
     <%
         } else {
-    %>	
-    	
-    
-            <%
-    			for (reviewDTO review : reviews) {
+				float totalScope = 0;
+				int reviewCount = reviews.size();
+				
+				for (reviewDTO review : reviews){
+					totalScope += review.getScope();
+				}
+				
+				float averageScope = (reviewCount > 0) ? totalScope / reviewCount : 0;
+				
+				int roundedScope = (int) Math.floor(averageScope);
 			%>
+				<h3>평균 평점</h3>	
+		
+			<div class="review-score">
+				<% 
+					for (int i = 0; i < roundedScope; i++) { %>
+						★
+				<% } 
+					for (int i = roundedScope; i < 5; i++) { %>
+						☆
+				<% } %>
+			</div>
+        		<% 
+    			for (reviewDTO review : reviews) {
+				%>
 			    <br>
     			<div class="review-card">
         			<div class="review-header"><%= review.getUsername() %></div>
         			<div class="review-score">
-            			<% for (int i = 0; i < review.getScope(); i++) { %>
-                			★
-            			<% } %>
-            			<% for (int i = review.getScope(); i < 5; i++) { %>
-                			☆
+            			<% 
+            				for (int i = 0; i < review.getScope(); i++) { %>
+                				★
+            			<% }
+            				for (int i = review.getScope(); i < 5; i++) { %>
+                				☆
             			<% } %>
         			</div>
         		<div class="review-content"><%= review.getContents() %></div>
@@ -104,8 +121,7 @@
    	 		</div>
           <%
               }
-			%>
-       <%
+
           }
     	%>
 </div>
